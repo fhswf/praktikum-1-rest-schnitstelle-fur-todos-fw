@@ -1,7 +1,9 @@
 import express from 'express';
+import bodyParser from 'body-parser'
 
 /** Zentrales Objekt für unsere Express-Applikation */
 const app = express();
+const port = 3000;
 
 /**
  * Liste aller ToDos. 
@@ -23,4 +25,35 @@ let TODOS = [
 ];
 
 // Your code here
-console.log('Hier ist alles anders'bhhhhhhhhhhhhb)
+app.use(bodyParser.json());
+
+app.get('/todos', (req, res) => {
+  res.send(TODOS);
+})
+
+app.get('/todos/:id', (req, res) => {
+    let id = req.params.id;
+    for (let i = 0; i < TODOS.length; i++) {
+      if (TODOS[i].id == id) {
+        let todo = TODOS[i];
+      };
+    };
+    res.send(todo)
+})
+
+app.delete('/todos/:id', (req,res) => {
+  let id = parseInt(req.params.id);
+  remove(id);
+})
+
+app.put('/todos/:id', (req,res) => {
+
+})
+
+app.create('/todos', (req,res) => {
+  
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
